@@ -10,10 +10,10 @@ int main(int argc, char *argv[]) {
 
   int ret = fork();
 
-  // parent send in pipes1[1], child receives in pipes1[0]
-  // child send in pipes2[1], parent receives in pipes2[0]
-  // should have checked close & read & write return value for error, but i am
-  // lazy
+  // write -> read
+  // father -> child (pipe1) 
+  // father <- child (pipe2)
+  // maybe should have checked close & read & write return value for error , but it doesn't matter
   if (ret == 0) {
     // i am the child
     pid = getpid();
