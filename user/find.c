@@ -15,7 +15,7 @@ char *basename(char *pathname) {
   return prev;
 }
 
-/* recursive */
+
 void find(char *curr_path, char *target) {
   char buf[512], *p;
   int fd;
