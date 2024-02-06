@@ -303,6 +303,31 @@ uvmfree(pagetable_t pagetable, uint64 sz)
   freewalk(pagetable);
 }
 
+void
+vmprintlevel(pagetable_t pt, int level) {
+    char *words = 0;
+    if (level == 2) words = "..";
+    if (level == 1) words = ".. ..";
+    if (level == 0) words = ".. .. ..";
+    for (int i = 0; i < 512; i++) {
+        pte_t pte = pt[i];
+        if ((pte & PTE_V)) {
+            //  this PTE points to a lower level page table.
+            printf("%s%d: pte %p pa %p\n", words, i, pte, PTE2PA(pte));
+            uint64 child = PTE2PA(pte);
+            if (level != 0) {
+                vmprintlevel((pagetable_t)child, level - 1);
+            }
+        }
+    }
+}
+
+void
+vmprint(pagetable_t pagetable){
+  printf("page table %p\n", pagetable);
+  vmprintlevel(pagetable,2);
+}
+
 // Given a parent process's page table, copy
 // its memory into a child's page table.
 // Copies both the page table and the
