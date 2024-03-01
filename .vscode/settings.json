@@ -1,0 +1,28 @@
+{
+  "clangd.path": "/usr/bin/clangd",
+  "clangd.arguments": [
+      "--log=verbose",
+      "--pretty",
+      "--all-scopes-completion",
+      "--completion-style=bundled",
+      "--cross-file-rename",
+      "--header-insertion=iwyu",
+      "--header-insertion-decorators",
+      "--background-index",
+      "--clang-tidy",
+      "--clang-tidy-checks=cppcoreguidelines-*,performance-*,bugprone-*,portability-*,modernize-*,google-*",
+      "-j=2",
+      "--header-insertion=never",
+      "--pch-storage=memory",
+      "--function-arg-placeholders=false",
+      "--compile-commands-dir=${workspaceFolder}/"
+  ],
+  "C_Cpp.errorSquiggles": "disabled",
+  "C_Cpp.intelliSenseEngineFallback": "disabled",
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "C_Cpp.autocomplete": "disabled",
+  "editor.tabSize": 2,
+  //  "cmake.buildArgs": [],
+  // "cmake.configureArgs": [],
+  // "cmake.configureEnvironment": {},
+}
