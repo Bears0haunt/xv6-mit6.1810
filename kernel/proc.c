@@ -145,6 +145,9 @@ found:
   memset(&p->context, 0, sizeof(p->context));
   p->context.ra = (uint64)forkret;
   p->context.sp = p->kstack + PGSIZE;
+  p->alarm_period = 0;
+  p->alarm_tik = 0;
+  p->func = 0;
 
   return p;
 }
