@@ -77,8 +77,20 @@ usertrap(void)
     exit(-1);
 
   // give up the CPU if this is a timer interrupt.
-  if(which_dev == 2)
-    yield();
+  if(which_dev == 2) {
+      p->alarm_tik += 1;
+      if (p->alarm_period != 0 && p->alarm_tik == p->alarm_period && p->is_alarming == 0) {
+        // 设立返回到用户态后到跳转指令地址
+        p->is_alarming = 1;
+        // jump to the alarm handler when returning back to user space
+        *p->alarm_trapframe = *p->trapframe;
+        p->alarm_trapframe->a0 = p->trapframe->a0;
+        p->trapframe->epc = (uint64)p->func;  // 修改跳转位置到alarm函数
+        p->alarm_tik = 0;
+        
+      }
+      yield();
+  }
 
   usertrapret();
 }
