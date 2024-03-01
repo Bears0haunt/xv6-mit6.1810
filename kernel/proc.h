@@ -109,4 +109,7 @@ struct proc {
   void (*func)();
   int alarm_period;
 
+  int is_alarming;                    // 是否正在执行告警处理函数
+  struct trapframe* alarm_trapframe;
+
 };
